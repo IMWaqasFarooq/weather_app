@@ -15,11 +15,11 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Country> cityList =[
     Country(name: "Dubai", lat: 25.17, lon: 55.30),
     Country(name: "London", lat: 51.51, lon: -0.12),
-    Country(name: "Egypt", lat: 30.03, lon: 31.23),
-    Country(name: "Brazil", lat: -23.5, lon: -46.62),
-    Country(name: "France", lat: 48.86, lon: 2.35),
-    Country(name: "Australia", lat: -33.87, lon: 151.21),
-    Country(name: "Canada", lat: 43.65, lon: -79.35)
+    Country(name: "Abuja", lat: 9.07, lon: 7.49),
+    Country(name: "Brasilia", lat: -23.5, lon: -46.62),
+    Country(name: "Paris", lat: 48.86, lon: 2.35),
+    Country(name: "Sydney", lat: -33.87, lon: 151.21),
+    Country(name: "Ottawa", lat:  45.33, lon: -75.72)
    ];
 
   bool selected = false;

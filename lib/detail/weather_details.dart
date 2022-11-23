@@ -57,13 +57,16 @@ class _WeatherDetailsState extends State<WeatherDetails> {
                   child: Column(
                     children: [
                       Text(
-                          detailModel!=null? detailModel.main!.temp.toString():""
+                          "Temperature ${detailModel.main!.temp.toString()} Celsius"
                       ),
+                      SizedBox(height: 20,),
                       Text(
-                          "weather${detailModel.weather![0].main.toString()}"
+                          "weather  ${detailModel.weather![0].main.toString()}"
                       ),
+                      SizedBox(height: 20,),
+
                       Text(
-                          "weather${detailModel.weather![0].icon.toString()}"
+                          "description ${detailModel.weather![0].description.toString()}"
                       ),
                     ],
                   ),
