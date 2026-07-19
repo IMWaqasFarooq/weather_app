@@ -10,14 +10,14 @@ Built as a portfolio piece to demonstrate a clean, layered Flutter architecture 
 > open-source weather API that requires no API key, which keeps this public repo
 > free of secrets.
 
-**Mobile** (iOS Simulator)
+**Mobile** 
 
 <p align="center">
   <img src="docs/screenshots/mobile_light.png" width="240" alt="Mobile home screen, light theme" />
   <img src="docs/screenshots/mobile_dark.png" width="240" alt="Mobile home screen, dark theme" />
 </p>
 
-**Desktop** (macOS)
+**Desktop** 
 
 <p align="center">
   <img src="docs/screenshots/desktop_light.png" width="380" alt="Desktop home screen, light theme" />
