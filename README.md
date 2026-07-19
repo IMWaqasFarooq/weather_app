@@ -1,6 +1,6 @@
 # 🌤️ Weather App
 
-A polished, open-source weather app built with Flutter — search any city or use your
+An open-source weather app built with Flutter — search any city or use your
 current location to see live conditions, an hourly outlook, and a 7-day forecast.
 
 Built as a portfolio piece to demonstrate a clean, layered Flutter architecture with
