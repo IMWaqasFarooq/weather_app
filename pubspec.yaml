@@ -49,8 +49,25 @@ dev_dependencies:
   # Lightweight mocking for tests (no code generation)
   mocktail: ^1.0.4
 
+  # Generates platform app icons from a single source image
+  flutter_launcher_icons: ^0.14.3
+
 flutter:
   uses-material-design: true
 
   assets:
     - assets/
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  macos:
+    generate: true
+  web:
+    generate: true
+  windows:
+    generate: true
+  image_path: "assets/icon/icon.png"
+  adaptive_icon_background: "#2F6FED"
+  adaptive_icon_foreground: "assets/icon/icon_foreground.png"
+  remove_alpha_ios: true
