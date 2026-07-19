@@ -11,8 +11,8 @@ Built as a portfolio piece to demonstrate a clean, layered Flutter architecture 
 > free of secrets.
 
 <p align="center">
-  <img src="docs/screenshots/home_light.png" width="380" alt="Home screen, light theme" />
-  <img src="docs/screenshots/home_dark.png" width="380" alt="Home screen, dark theme" />
+  <img src="docs/screenshots/home_light.png" width="260" alt="Home screen, light theme" />
+  <img src="docs/screenshots/home_dark.png" width="260" alt="Home screen, dark theme" />
 </p>
 
 ## Features
