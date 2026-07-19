@@ -10,14 +10,10 @@ Built as a portfolio piece to demonstrate a clean, layered Flutter architecture 
 > open-source weather API that requires no API key, which keeps this public repo
 > free of secrets.
 
-<!--
-  Add screenshots here once you have them, e.g.:
-  <p align="center">
-    <img src="docs/screenshot_home.png" width="260" />
-    <img src="docs/screenshot_search.png" width="260" />
-    <img src="docs/screenshot_dark.png" width="260" />
-  </p>
--->
+<p align="center">
+  <img src="docs/screenshots/home_light.png" width="380" alt="Home screen, light theme" />
+  <img src="docs/screenshots/home_dark.png" width="380" alt="Home screen, dark theme" />
+</p>
 
 ## Features
 
@@ -67,25 +63,22 @@ only ever branch on a small `ViewStatus` enum (`initial`, `loading`, `refreshing
 `ChangeNotifierProxyProvider`: toggling the temperature unit automatically
 refetches the current city's weather in the new unit.
 
-## Why Open-Meteo instead of OpenWeatherMap?
+## Why this tech stack?
 
-The original version of this project called OpenWeatherMap with an API key
-hardcoded in source. For a project meant to live in a **public** GitHub repo,
-that's a real problem — anyone can lift the key. Open-Meteo's forecast and
-geocoding endpoints are free for non-commercial use and require no key at all,
-so this rewrite drops the secret entirely instead of working around how to hide it.
+Every dependency here was picked against the same yardstick: **small, boring,
+and codegen-free**, so the whole app stays readable end-to-end without needing
+to run a build step to understand what a class does.
 
-## Tech stack
-
-| Concern            | Package                                                          |
-| ------------------- | ---------------------------------------------------------------- |
-| State management    | [`provider`](https://pub.dev/packages/provider)                  |
-| Networking           | [`http`](https://pub.dev/packages/http)                          |
-| Location             | [`geolocator`](https://pub.dev/packages/geolocator)               |
-| Local persistence    | [`shared_preferences`](https://pub.dev/packages/shared_preferences)|
-| Value equality       | [`equatable`](https://pub.dev/packages/equatable)                 |
-| Date formatting      | [`intl`](https://pub.dev/packages/intl)                           |
-| Testing              | `flutter_test`, [`mocktail`](https://pub.dev/packages/mocktail)    |
+| Package | Why, over the obvious alternative |
+| --- | --- |
+| [`provider`](https://pub.dev/packages/provider) for state management | `ChangeNotifier` + `Provider` is the smallest state-management model that still scales to multiple screens and cross-provider dependencies (see `ChangeNotifierProxyProvider` linking settings to weather). Riverpod and Bloc are excellent, but both add a layer of generated/boilerplate ceremony this app-sized project doesn't need. |
+| [`http`](https://pub.dev/packages/http) over `dio` | This app makes one kind of request (JSON GET) to one API family. `dio`'s interceptors, transformers, and adapters solve problems this app doesn't have; `http` plus one small `ApiClient` wrapper covers it in ~60 lines. |
+| [Open-Meteo](https://open-meteo.com/) over OpenWeatherMap | The original version of this project called OpenWeatherMap with an API key hardcoded in source — a real problem for a project meant to live in a *public* repo, since anyone can lift the key. Open-Meteo's forecast and geocoding endpoints are free and require no key at all, so this rewrite drops the secret entirely instead of finding a clever way to hide it. |
+| [`equatable`](https://pub.dev/packages/equatable) for models | Value equality (for tests, `Set`/dedup logic, widget rebuild checks) without hand-writing `==`/`hashCode` or reaching for a code generator. |
+| [`shared_preferences`](https://pub.dev/packages/shared_preferences) for persistence | Everything persisted here (theme, unit, a handful of recent cities) is small key-value data — not relational, not queried. A full database (`sqflite`, `drift`) would be solving a problem this app doesn't have. |
+| [`geolocator`](https://pub.dev/packages/geolocator) + [`geocoding`](https://pub.dev/packages/geocoding) | Native platform APIs for location and reverse-geocoding, from the same publisher (Baseflow), designed to be used together — no third-party geocoding service or key required. |
+| [`mocktail`](https://pub.dev/packages/mocktail) over `mockito` | Mocks without a `build_runner` code-gen step, matching the rest of the stack's "no codegen" rule. |
+| [`intl`](https://pub.dev/packages/intl) | The standard, official package for locale-aware date/time formatting — no reason to hand-roll it. |
 
 ## Getting started
 
