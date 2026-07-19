@@ -1,8 +1,4 @@
-/// Exceptions thrown by the network/data layer.
-///
-/// These are internal to [WeatherRepository] implementations; the
-/// presentation layer never catches these directly, only the [Failure]
-/// types they get mapped to.
+// Base type for errors thrown by the data layer.
 abstract class AppException implements Exception {
   const AppException(this.message);
 
@@ -17,7 +13,8 @@ class NetworkException extends AppException {
 }
 
 class ServerException extends AppException {
-  const ServerException([super.message = 'Server returned an unexpected response.']);
+  const ServerException(
+      [super.message = 'Server returned an unexpected response.']);
 }
 
 class NotFoundException extends AppException {

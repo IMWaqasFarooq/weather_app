@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// Generic empty/error state with an optional retry action, reused for
-/// network errors, location failures, and the initial empty state.
+// Generic empty/error state with an optional retry button.
 class ErrorView extends StatelessWidget {
   const ErrorView({
     super.key,

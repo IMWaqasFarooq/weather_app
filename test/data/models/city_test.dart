@@ -56,7 +56,9 @@ void main() {
       expect(roundTripped, city);
     });
 
-    test('displayName joins name, admin1 and country, skipping blanks/duplicates', () {
+    test(
+        'displayName joins name, admin1 and country, skipping blanks/duplicates',
+        () {
       const withRegion = City(
         id: 1,
         name: 'Paris',
@@ -95,7 +97,8 @@ void main() {
     });
 
     test('City.currentLocation builds a synthetic entry with id -1', () {
-      final city = City.currentLocation(latitude: 10, longitude: 20, name: 'My Location');
+      final city = City.currentLocation(
+          latitude: 10, longitude: 20, name: 'My Location');
       expect(city.id, -1);
       expect(city.name, 'My Location');
       expect(city.latitude, 10);

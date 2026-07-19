@@ -4,13 +4,10 @@ import '../core/network/api_client.dart';
 import 'models/city.dart';
 import 'models/weather.dart';
 
-/// Contract for fetching weather and location data, so the presentation
-/// layer depends on this abstraction rather than a concrete HTTP client.
+// Fetches city search results and weather reports from Open-Meteo.
 abstract class WeatherRepository {
-  /// Looks up cities by name using Open-Meteo's geocoding search.
   Future<List<City>> searchCities(String query);
 
-  /// Fetches current conditions plus hourly/daily forecasts for a location.
   Future<WeatherReport> getWeather({
     required double latitude,
     required double longitude,
@@ -20,7 +17,8 @@ abstract class WeatherRepository {
 }
 
 class WeatherRepositoryImpl implements WeatherRepository {
-  WeatherRepositoryImpl({required ApiClient apiClient}) : _apiClient = apiClient;
+  WeatherRepositoryImpl({required ApiClient apiClient})
+      : _apiClient = apiClient;
 
   final ApiClient _apiClient;
 

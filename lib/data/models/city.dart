@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-/// A searchable location, sourced from Open-Meteo's geocoding API.
+// A city returned by the geocoding search, or a synthetic "current location" entry.
 class City extends Equatable {
   const City({
     required this.id,
@@ -18,12 +18,10 @@ class City extends Equatable {
   final double longitude;
   final String country;
 
-  /// First-level administrative region (state/province), when available.
   final String? admin1;
   final String? countryCode;
 
-  /// A synthetic city used for "current location" results, where we only
-  /// have coordinates and a resolved label, not a geocoding database id.
+  // Used for "current location" results where we only have coordinates.
   factory City.currentLocation({
     required double latitude,
     required double longitude,
@@ -63,7 +61,6 @@ class City extends Equatable {
     };
   }
 
-  /// A short, display-friendly label, e.g. "Paris, Île-de-France, France".
   String get displayName {
     final parts = [name, if (admin1 != null && admin1 != name) admin1, country]
         .where((part) => part != null && part.isNotEmpty);
@@ -71,5 +68,6 @@ class City extends Equatable {
   }
 
   @override
-  List<Object?> get props => [id, name, latitude, longitude, country, admin1, countryCode];
+  List<Object?> get props =>
+      [id, name, latitude, longitude, country, admin1, countryCode];
 }

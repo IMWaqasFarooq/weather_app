@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// Centralized light/dark theming, built off a single seed color with
-/// Material 3's dynamic color scheme generation.
+// Light/dark ThemeData built from a single Material 3 seed color.
 class AppTheme {
   const AppTheme._();
 
@@ -34,7 +33,8 @@ class AppTheme {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       ),
       chipTheme: ChipThemeData(
-        backgroundColor: colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+        backgroundColor:
+            colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         side: BorderSide.none,
       ),

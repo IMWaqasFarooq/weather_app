@@ -49,7 +49,8 @@ class _HomeScreenState extends State<HomeScreen> {
           IconButton(
             tooltip: 'Use current location',
             icon: const Icon(Icons.my_location),
-            onPressed: () => context.read<WeatherProvider>().useCurrentLocation(),
+            onPressed: () =>
+                context.read<WeatherProvider>().useCurrentLocation(),
           ),
           IconButton(
             tooltip: 'Search city',
@@ -58,7 +59,8 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           IconButton(
             tooltip: 'Toggle °C/°F',
-            onPressed: () => context.read<SettingsProvider>().toggleTemperatureUnit(),
+            onPressed: () =>
+                context.read<SettingsProvider>().toggleTemperatureUnit(),
             icon: Text(
               settings.temperatureUnit == TemperatureUnit.celsius ? '°F' : '°C',
               style: Theme.of(context).textTheme.titleMedium,
@@ -73,7 +75,9 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             onPressed: () {
               final isDark = Theme.of(context).brightness == Brightness.dark;
-              context.read<SettingsProvider>().setThemeMode(isDark ? ThemeMode.light : ThemeMode.dark);
+              context
+                  .read<SettingsProvider>()
+                  .setThemeMode(isDark ? ThemeMode.light : ThemeMode.dark);
             },
           ),
         ],
@@ -82,12 +86,14 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildBody(BuildContext context, WeatherProvider weather, SettingsProvider settings) {
+  Widget _buildBody(BuildContext context, WeatherProvider weather,
+      SettingsProvider settings) {
     switch (weather.status) {
       case ViewStatus.initial:
         return ErrorView(
           icon: Icons.wb_sunny_outlined,
-          message: 'Search for a city or use your current location to see the weather.',
+          message:
+              'Search for a city or use your current location to see the weather.',
           onRetry: () => weather.useCurrentLocation(),
           retryLabel: 'Use current location',
         );
@@ -132,9 +138,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 windSpeedUnit: settings.windSpeedUnit,
               ),
               const SizedBox(height: 16),
-              HourlyForecastList(hourly: report.hourly, temperatureUnit: settings.temperatureUnit),
+              HourlyForecastList(
+                  hourly: report.hourly,
+                  temperatureUnit: settings.temperatureUnit),
               const SizedBox(height: 16),
-              DailyForecastList(daily: report.daily, temperatureUnit: settings.temperatureUnit),
+              DailyForecastList(
+                  daily: report.daily,
+                  temperatureUnit: settings.temperatureUnit),
             ],
           ),
         );

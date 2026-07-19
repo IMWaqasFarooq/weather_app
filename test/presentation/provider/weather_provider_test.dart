@@ -23,8 +23,14 @@ void main() {
     registerFallbackValue(WindSpeedUnit.kmh);
   });
 
-  const paris = City(id: 1, name: 'Paris', latitude: 48.85, longitude: 2.35, country: 'France');
-  const london = City(id: 2, name: 'London', latitude: 51.51, longitude: -0.12, country: 'UK');
+  const paris = City(
+      id: 1,
+      name: 'Paris',
+      latitude: 48.85,
+      longitude: 2.35,
+      country: 'France');
+  const london = City(
+      id: 2, name: 'London', latitude: 51.51, longitude: -0.12, country: 'UK');
 
   WeatherReport sampleReport({double temperature = 20}) {
     return WeatherReport(
@@ -95,7 +101,8 @@ void main() {
       expect(preferences.getStringList('weather.recent_cities'), isNotNull);
     });
 
-    test('maps a NetworkException to NetworkFailure and sets error status', () async {
+    test('maps a NetworkException to NetworkFailure and sets error status',
+        () async {
       when(() => repository.getWeather(
             latitude: any(named: 'latitude'),
             longitude: any(named: 'longitude'),
@@ -110,7 +117,9 @@ void main() {
       expect(provider.failure?.message, 'offline');
     });
 
-    test('most recently selected city is moved to the front, without duplicates', () async {
+    test(
+        'most recently selected city is moved to the front, without duplicates',
+        () async {
       stubWeather(paris, sampleReport());
       stubWeather(london, sampleReport(temperature: 15));
 
@@ -123,8 +132,11 @@ void main() {
   });
 
   group('useCurrentLocation', () {
-    test('resolves the current city via the location service and fetches weather', () async {
-      when(() => locationService.resolveCurrentCity()).thenAnswer((_) async => paris);
+    test(
+        'resolves the current city via the location service and fetches weather',
+        () async {
+      when(() => locationService.resolveCurrentCity())
+          .thenAnswer((_) async => paris);
       stubWeather(paris, sampleReport());
 
       await provider.useCurrentLocation();
@@ -134,7 +146,8 @@ void main() {
       expect(provider.city, paris);
     });
 
-    test('silent fallback swallows a location failure on first launch', () async {
+    test('silent fallback swallows a location failure on first launch',
+        () async {
       when(() => locationService.resolveCurrentCity())
           .thenThrow(const LocationException('denied'));
 
@@ -157,7 +170,9 @@ void main() {
   });
 
   group('refresh', () {
-    test('re-fetches for the current city without adding a duplicate recent entry', () async {
+    test(
+        're-fetches for the current city without adding a duplicate recent entry',
+        () async {
       stubWeather(paris, sampleReport());
       await provider.selectCity(paris);
 
@@ -181,7 +196,8 @@ void main() {
   });
 
   group('updateSettings', () {
-    test('refetches with the new unit when the temperature unit changes', () async {
+    test('refetches with the new unit when the temperature unit changes',
+        () async {
       stubWeather(paris, sampleReport());
       await provider.selectCity(paris);
 

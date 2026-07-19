@@ -9,8 +9,7 @@ import '../../data/weather_repository.dart';
 import '../widgets/error_view.dart';
 import '../widgets/loading_view.dart';
 
-/// Lets the user search for a city by name and returns the chosen [City]
-/// via `Navigator.pop`.
+// Lets the user search for a city and returns the chosen City via Navigator.pop.
 class CitySearchScreen extends StatefulWidget {
   const CitySearchScreen({super.key});
 

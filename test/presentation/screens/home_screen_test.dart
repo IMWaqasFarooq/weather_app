@@ -25,7 +25,12 @@ void main() {
     registerFallbackValue(WindSpeedUnit.kmh);
   });
 
-  const paris = City(id: 1, name: 'Paris', latitude: 48.85, longitude: 2.35, country: 'France');
+  const paris = City(
+      id: 1,
+      name: 'Paris',
+      latitude: 48.85,
+      longitude: 2.35,
+      country: 'France');
 
   WeatherReport sampleReport() {
     return WeatherReport(
@@ -41,7 +46,11 @@ void main() {
         isDay: true,
       ),
       hourly: [
-        HourlyWeather(time: DateTime.now(), temperature: 21, weatherCode: 0, precipitationProbability: 0),
+        HourlyWeather(
+            time: DateTime.now(),
+            temperature: 21,
+            weatherCode: 0,
+            precipitationProbability: 0),
       ],
       daily: [
         DailyWeather(
@@ -88,8 +97,11 @@ void main() {
     locationService = _MockLocationService();
   });
 
-  testWidgets('shows the empty state and offers to use current location on first launch', (tester) async {
-    when(() => locationService.resolveCurrentCity()).thenThrow(const LocationException('denied'));
+  testWidgets(
+      'shows the empty state and offers to use current location on first launch',
+      (tester) async {
+    when(() => locationService.resolveCurrentCity())
+        .thenThrow(const LocationException('denied'));
 
     await pumpHome(tester);
     await tester.pumpAndSettle();
@@ -97,8 +109,11 @@ void main() {
     expect(find.textContaining('Search for a city'), findsOneWidget);
   });
 
-  testWidgets('renders current conditions once weather loads via current location', (tester) async {
-    when(() => locationService.resolveCurrentCity()).thenThrow(const LocationException('denied'));
+  testWidgets(
+      'renders current conditions once weather loads via current location',
+      (tester) async {
+    when(() => locationService.resolveCurrentCity())
+        .thenThrow(const LocationException('denied'));
 
     await pumpHome(tester);
     await tester.pumpAndSettle();
@@ -110,9 +125,8 @@ void main() {
           windSpeedUnit: any(named: 'windSpeedUnit'),
         )).thenAnswer((_) async => sampleReport());
 
-    // Simulate picking a city directly through the provider, exercising the
-    // same success rendering path search would.
-    final weatherProvider = tester.element(find.byType(HomeScreen)).read<WeatherProvider>();
+    final weatherProvider =
+        tester.element(find.byType(HomeScreen)).read<WeatherProvider>();
     await weatherProvider.selectCity(paris);
     await tester.pumpAndSettle();
 
@@ -120,8 +134,10 @@ void main() {
     expect(find.text('21°C'), findsWidgets);
   });
 
-  testWidgets('shows an error view with retry when loading fails', (tester) async {
-    when(() => locationService.resolveCurrentCity()).thenThrow(const LocationException('denied'));
+  testWidgets('shows an error view with retry when loading fails',
+      (tester) async {
+    when(() => locationService.resolveCurrentCity())
+        .thenThrow(const LocationException('denied'));
     await pumpHome(tester);
     await tester.pumpAndSettle();
 
@@ -132,7 +148,8 @@ void main() {
           windSpeedUnit: any(named: 'windSpeedUnit'),
         )).thenThrow(const NetworkException('offline'));
 
-    final weatherProvider = tester.element(find.byType(HomeScreen)).read<WeatherProvider>();
+    final weatherProvider =
+        tester.element(find.byType(HomeScreen)).read<WeatherProvider>();
     await weatherProvider.selectCity(paris);
     await tester.pumpAndSettle();
 

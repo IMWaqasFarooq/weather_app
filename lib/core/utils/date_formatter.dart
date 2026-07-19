@@ -1,6 +1,6 @@
 import 'package:intl/intl.dart';
 
-/// Small formatting helpers shared by the forecast widgets.
+// Date/time formatting helpers used by the forecast widgets.
 class DateFormatter {
   const DateFormatter._();
 
@@ -16,9 +16,14 @@ class DateFormatter {
 
   static bool isToday(DateTime time) {
     final now = DateTime.now();
-    return time.year == now.year && time.month == now.month && time.day == now.day;
+    return time.year == now.year &&
+        time.month == now.month &&
+        time.day == now.day;
   }
 
   static bool isSameHour(DateTime a, DateTime b) =>
-      a.year == b.year && a.month == b.month && a.day == b.day && a.hour == b.hour;
+      a.year == b.year &&
+      a.month == b.month &&
+      a.day == b.day &&
+      a.hour == b.hour;
 }

@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-/// Current conditions for a location, at the moment the report was fetched.
+// Current conditions at the moment the report was fetched.
 class CurrentWeather extends Equatable {
   const CurrentWeather({
     required this.time,
@@ -52,7 +52,7 @@ class CurrentWeather extends Equatable {
       ];
 }
 
-/// A single hour's forecast entry.
+// One hour of forecast data.
 class HourlyWeather extends Equatable {
   const HourlyWeather({
     required this.time,
@@ -67,10 +67,11 @@ class HourlyWeather extends Equatable {
   final int precipitationProbability;
 
   @override
-  List<Object?> get props => [time, temperature, weatherCode, precipitationProbability];
+  List<Object?> get props =>
+      [time, temperature, weatherCode, precipitationProbability];
 }
 
-/// A single day's forecast entry.
+// One day of forecast data.
 class DailyWeather extends Equatable {
   const DailyWeather({
     required this.date,
@@ -102,8 +103,7 @@ class DailyWeather extends Equatable {
       ];
 }
 
-/// Full weather report for a location: current conditions plus hourly and
-/// daily forecasts, as returned in one call to Open-Meteo's forecast API.
+// Full weather report: current conditions plus hourly and daily forecasts.
 class WeatherReport extends Equatable {
   const WeatherReport({
     required this.current,
@@ -122,7 +122,8 @@ class WeatherReport extends Equatable {
     final hourlyTimes = hourlyJson['time'] as List<dynamic>;
     final hourlyTemps = hourlyJson['temperature_2m'] as List<dynamic>;
     final hourlyCodes = hourlyJson['weather_code'] as List<dynamic>;
-    final hourlyPrecip = hourlyJson['precipitation_probability'] as List<dynamic>;
+    final hourlyPrecip =
+        hourlyJson['precipitation_probability'] as List<dynamic>;
 
     final hourly = <HourlyWeather>[
       for (var i = 0; i < hourlyTimes.length; i++)
@@ -139,7 +140,8 @@ class WeatherReport extends Equatable {
     final dailyCodes = dailyJson['weather_code'] as List<dynamic>;
     final dailyMax = dailyJson['temperature_2m_max'] as List<dynamic>;
     final dailyMin = dailyJson['temperature_2m_min'] as List<dynamic>;
-    final dailyPrecip = dailyJson['precipitation_probability_max'] as List<dynamic>;
+    final dailyPrecip =
+        dailyJson['precipitation_probability_max'] as List<dynamic>;
     final dailySunrise = dailyJson['sunrise'] as List<dynamic>;
     final dailySunset = dailyJson['sunset'] as List<dynamic>;
 

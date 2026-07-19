@@ -3,14 +3,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/constants/enums.dart';
 
-/// Persists and exposes user preferences: theme mode and temperature unit.
-///
-/// Kept separate from [WeatherProvider] so unit/theme concerns don't bloat
-/// the weather-fetching state machine, and so widgets that only care about
-/// display preferences (e.g. a settings toggle) don't rebuild on every
-/// weather refresh.
+// Persists theme mode and temperature unit preferences.
 class SettingsProvider extends ChangeNotifier {
-  SettingsProvider({required SharedPreferences preferences}) : _preferences = preferences {
+  SettingsProvider({required SharedPreferences preferences})
+      : _preferences = preferences {
     _load();
   }
 
@@ -25,8 +21,9 @@ class SettingsProvider extends ChangeNotifier {
   TemperatureUnit _temperatureUnit = TemperatureUnit.celsius;
   TemperatureUnit get temperatureUnit => _temperatureUnit;
 
-  WindSpeedUnit get windSpeedUnit =>
-      _temperatureUnit == TemperatureUnit.celsius ? WindSpeedUnit.kmh : WindSpeedUnit.mph;
+  WindSpeedUnit get windSpeedUnit => _temperatureUnit == TemperatureUnit.celsius
+      ? WindSpeedUnit.kmh
+      : WindSpeedUnit.mph;
 
   void _load() {
     final storedTheme = _preferences.getString(_themeModeKey);

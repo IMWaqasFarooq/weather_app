@@ -5,7 +5,7 @@ import '../../core/utils/date_formatter.dart';
 import '../../data/models/weather.dart';
 import 'weather_icon.dart';
 
-/// Vertical list of the 7-day forecast, one row per day.
+// Vertical list showing the 7-day forecast, one row per day.
 class DailyForecastList extends StatelessWidget {
   const DailyForecastList({
     super.key,
@@ -26,11 +26,15 @@ class DailyForecastList extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('7-day forecast', style: Theme.of(context).textTheme.titleSmall),
+            Text('7-day forecast',
+                style: Theme.of(context).textTheme.titleSmall),
             const SizedBox(height: 8),
             for (var i = 0; i < daily.length; i++) ...[
               if (i > 0) const Divider(height: 1),
-              _DailyRow(day: daily[i], temperatureUnit: temperatureUnit, isToday: i == 0),
+              _DailyRow(
+                  day: daily[i],
+                  temperatureUnit: temperatureUnit,
+                  isToday: i == 0),
             ],
           ],
         ),
@@ -40,7 +44,10 @@ class DailyForecastList extends StatelessWidget {
 }
 
 class _DailyRow extends StatelessWidget {
-  const _DailyRow({required this.day, required this.temperatureUnit, required this.isToday});
+  const _DailyRow(
+      {required this.day,
+      required this.temperatureUnit,
+      required this.isToday});
 
   final DailyWeather day;
   final TemperatureUnit temperatureUnit;
@@ -57,17 +64,20 @@ class _DailyRow extends StatelessWidget {
             width: 88,
             child: Text(
               isToday ? 'Today' : DateFormatter.shortWeekday(day.date),
-              style: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
+              style: theme.textTheme.bodyMedium
+                  ?.copyWith(fontWeight: FontWeight.w600),
             ),
           ),
           WeatherIcon(code: day.weatherCode, size: 24),
           const Spacer(),
           if (day.precipitationProbabilityMax > 0) ...[
-            Icon(Icons.water_drop_outlined, size: 14, color: theme.colorScheme.primary),
+            Icon(Icons.water_drop_outlined,
+                size: 14, color: theme.colorScheme.primary),
             const SizedBox(width: 4),
             Text(
               '${day.precipitationProbabilityMax}%',
-              style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.primary),
+              style: theme.textTheme.bodySmall
+                  ?.copyWith(color: theme.colorScheme.primary),
             ),
             const SizedBox(width: 12),
           ],

@@ -31,7 +31,8 @@ Future<void> main() async {
             preferences: preferences,
             settings: context.read<SettingsProvider>(),
           ),
-          update: (_, settings, previous) => previous!..updateSettings(settings),
+          update: (_, settings, previous) =>
+              previous!..updateSettings(settings),
         ),
       ],
       child: const WeatherApp(),

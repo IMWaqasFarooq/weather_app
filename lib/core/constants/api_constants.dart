@@ -1,12 +1,9 @@
-/// Endpoints for the free, key-free Open-Meteo API.
-///
-/// Open-Meteo requires no API key for non-commercial use, which keeps this
-/// portfolio project free of secrets that would otherwise leak in a public
-/// repository.
+// Open-Meteo API endpoints and query field lists.
 class ApiConstants {
   const ApiConstants._();
 
-  static const String forecastBaseUrl = 'https://api.open-meteo.com/v1/forecast';
+  static const String forecastBaseUrl =
+      'https://api.open-meteo.com/v1/forecast';
   static const String geocodingBaseUrl =
       'https://geocoding-api.open-meteo.com/v1/search';
 

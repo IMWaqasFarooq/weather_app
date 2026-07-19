@@ -6,12 +6,7 @@ import 'package:http/http.dart' as http;
 import '../constants/api_constants.dart';
 import '../errors/exceptions.dart';
 
-/// Thin wrapper around [http.Client] that centralizes error handling.
-///
-/// Every repository call goes through [get], so network failures (no
-/// connection, timeout) and server failures (4xx/5xx) are translated once,
-/// here, into the [AppException] hierarchy instead of being handled
-/// ad-hoc at every call site.
+// Thin http.Client wrapper that turns network/HTTP errors into AppExceptions.
 class ApiClient {
   ApiClient({http.Client? client}) : _client = client ?? http.Client();
 
@@ -35,9 +30,11 @@ class ApiClient {
     } on HttpException {
       throw const NetworkException();
     } on FormatException {
-      throw const ServerException('Received a malformed response from the server.');
+      throw const ServerException(
+          'Received a malformed response from the server.');
     } catch (_) {
-      throw const NetworkException('Could not reach the weather service. Check your connection.');
+      throw const NetworkException(
+          'Could not reach the weather service. Check your connection.');
     }
 
     if (response.statusCode == 404) {
@@ -45,7 +42,8 @@ class ApiClient {
     }
 
     if (response.statusCode < 200 || response.statusCode >= 300) {
-      throw ServerException('Server returned status code ${response.statusCode}.');
+      throw ServerException(
+          'Server returned status code ${response.statusCode}.');
     }
 
     try {
@@ -55,7 +53,8 @@ class ApiClient {
       }
       throw const ServerException('Unexpected response shape from server.');
     } on FormatException {
-      throw const ServerException('Received a malformed response from the server.');
+      throw const ServerException(
+          'Received a malformed response from the server.');
     }
   }
 

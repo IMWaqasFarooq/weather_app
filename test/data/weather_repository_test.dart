@@ -21,15 +21,18 @@ void main() {
 
   setUp(() {
     httpClient = _MockHttpClient();
-    repository = WeatherRepositoryImpl(apiClient: ApiClient(client: httpClient));
+    repository =
+        WeatherRepositoryImpl(apiClient: ApiClient(client: httpClient));
   });
 
-  http.Response jsonResponse(Map<String, dynamic> body, {int statusCode = 200}) {
+  http.Response jsonResponse(Map<String, dynamic> body,
+      {int statusCode = 200}) {
     return http.Response(jsonEncode(body), statusCode);
   }
 
   group('searchCities', () {
-    test('returns an empty list for a blank query without hitting the network', () async {
+    test('returns an empty list for a blank query without hitting the network',
+        () async {
       final results = await repository.searchCities('   ');
 
       expect(results, isEmpty);
@@ -61,7 +64,8 @@ void main() {
     });
 
     test('returns an empty list when the API has no matches', () async {
-      when(() => httpClient.get(any())).thenAnswer((_) async => jsonResponse({'results': null}));
+      when(() => httpClient.get(any()))
+          .thenAnswer((_) async => jsonResponse({'results': null}));
 
       final results = await repository.searchCities('Nowhereville');
 
@@ -112,7 +116,8 @@ void main() {
 
       expect(report.current.temperature, 20.0);
 
-      final capturedUri = verify(() => httpClient.get(captureAny())).captured.single as Uri;
+      final capturedUri =
+          verify(() => httpClient.get(captureAny())).captured.single as Uri;
       expect(capturedUri.queryParameters['temperature_unit'], 'fahrenheit');
       expect(capturedUri.queryParameters['wind_speed_unit'], 'mph');
       expect(capturedUri.queryParameters['latitude'], '1.0');
@@ -120,7 +125,8 @@ void main() {
     });
 
     test('throws NotFoundException on a 404 response', () async {
-      when(() => httpClient.get(any())).thenAnswer((_) async => http.Response('not found', 404));
+      when(() => httpClient.get(any()))
+          .thenAnswer((_) async => http.Response('not found', 404));
 
       expect(
         () => repository.getWeather(
@@ -134,7 +140,8 @@ void main() {
     });
 
     test('throws ServerException on a 500 response', () async {
-      when(() => httpClient.get(any())).thenAnswer((_) async => http.Response('oops', 500));
+      when(() => httpClient.get(any()))
+          .thenAnswer((_) async => http.Response('oops', 500));
 
       expect(
         () => repository.getWeather(
@@ -148,7 +155,8 @@ void main() {
     });
 
     test('throws NetworkException when there is no connection', () async {
-      when(() => httpClient.get(any())).thenThrow(const SocketException('no network'));
+      when(() => httpClient.get(any()))
+          .thenThrow(const SocketException('no network'));
 
       expect(
         () => repository.getWeather(

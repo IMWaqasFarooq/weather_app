@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/utils/weather_code_mapper.dart';
 
-/// Renders the icon for a given WMO weather code, with an accessible label.
+// Icon for a WMO weather code, with an accessible label.
 class WeatherIcon extends StatelessWidget {
   const WeatherIcon({
     super.key,

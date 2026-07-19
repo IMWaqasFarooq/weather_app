@@ -13,13 +13,8 @@ import '../../data/models/weather.dart';
 import '../../data/weather_repository.dart';
 import 'settings_provider.dart';
 
-/// Drives the weather screen: holds the selected city, the current
-/// [WeatherReport], load status, and the recent-cities list.
-///
-/// Depends on [SettingsProvider] (via [updateSettings], wired through a
-/// `ChangeNotifierProxyProvider`) purely to read the active temperature/wind
-/// units when fetching — settings changes trigger an automatic refetch so
-/// the displayed numbers always match the selected unit.
+// Holds the selected city, current weather report, and load status.
+// Listens to SettingsProvider so a unit change triggers a refetch.
 class WeatherProvider extends ChangeNotifier {
   WeatherProvider({
     required WeatherRepository repository,
@@ -61,19 +56,16 @@ class WeatherProvider extends ChangeNotifier {
 
   TemperatureUnit? _lastFetchedUnit;
 
-  /// Called by a `ChangeNotifierProxyProvider` whenever [SettingsProvider]
-  /// changes. Refetches automatically if the unit actually changed and a
-  /// location is already loaded.
   void updateSettings(SettingsProvider settings) {
     _settings = settings;
-    if (_city != null && _lastFetchedUnit != null && _lastFetchedUnit != settings.temperatureUnit) {
+    if (_city != null &&
+        _lastFetchedUnit != null &&
+        _lastFetchedUnit != settings.temperatureUnit) {
       _fetchWeather(_city!, preserveCity: true);
     }
   }
 
-  /// Attempts to use the device's current location; falls back silently to
-  /// the most recent city (or does nothing, leaving the empty state) if
-  /// location isn't available. Intended for first launch.
+  // Uses the last selected city if we have one, otherwise tries current location.
   Future<void> loadInitialWeather() async {
     if (_recentCities.isNotEmpty) {
       await selectCity(_recentCities.first, addToRecents: false);
@@ -165,7 +157,8 @@ class WeatherProvider extends ChangeNotifier {
     final raw = _preferences.getStringList(_recentCitiesKey);
     if (raw == null) return [];
     return raw
-        .map((entry) => City.fromJson(jsonDecode(entry) as Map<String, dynamic>))
+        .map(
+            (entry) => City.fromJson(jsonDecode(entry) as Map<String, dynamic>))
         .toList();
   }
 

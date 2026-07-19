@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../data/models/city.dart';
 
-/// Horizontal row of chips for quickly switching back to a recently viewed
-/// city. Hidden entirely when there's no history yet.
+// Chips for quickly switching back to a recently viewed city.
 class RecentCitiesList extends StatelessWidget {
   const RecentCitiesList({
     super.key,

@@ -34,7 +34,8 @@ Map<String, dynamic> _sampleForecastJson() => {
 void main() {
   group('CurrentWeather', () {
     test('fromJson parses all fields', () {
-      final current = CurrentWeather.fromJson(_sampleForecastJson()['current'] as Map<String, dynamic>);
+      final current = CurrentWeather.fromJson(
+          _sampleForecastJson()['current'] as Map<String, dynamic>);
 
       expect(current.temperature, 25.3);
       expect(current.apparentTemperature, 24.7);

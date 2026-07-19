@@ -4,14 +4,10 @@ import 'package:geolocator/geolocator.dart';
 import '../../data/models/city.dart';
 import '../errors/exceptions.dart';
 
-/// Wraps [Geolocator] (and the platform's native geocoder) so the rest of
-/// the app depends on a small, mockable interface instead of two plugins.
-///
-/// Open-Meteo only offers forward geocoding (search by name), not reverse
-/// geocoding, so resolving a display name for "current location" has to go
-/// through the device's own geocoder instead.
+// Wraps Geolocator and the device's native geocoder for location lookups.
 class LocationService {
-  LocationService({Geocoding? geocoding}) : _geocoding = geocoding ?? Geocoding();
+  LocationService({Geocoding? geocoding})
+      : _geocoding = geocoding ?? Geocoding();
 
   final Geocoding _geocoding;
 
@@ -39,24 +35,19 @@ class LocationService {
       }
 
       return await Geolocator.getCurrentPosition(
-        locationSettings: const LocationSettings(accuracy: LocationAccuracy.medium),
+        locationSettings:
+            const LocationSettings(accuracy: LocationAccuracy.medium),
       );
     } on LocationException {
       rethrow;
     } catch (e) {
-      // Geolocator's platform channels throw their own exception types (e.g.
-      // for a misconfigured Info.plist/AndroidManifest) that aren't part of
-      // our AppException hierarchy. Normalize everything here so callers
-      // only ever have to handle LocationException.
+      // Normalize platform-specific exceptions to our own type.
       throw LocationException('Could not determine your location: $e');
     }
   }
 
-  /// Resolves the device's current position into a displayable [City].
-  ///
-  /// Falls back to a generic "My Location" label if the native geocoder
-  /// fails or returns nothing (e.g. it's unsupported on this platform, such
-  /// as web) — that's a cosmetic gap, not a reason to fail the whole flow.
+  // Reverse-geocodes the current position into a City, falling back to a
+  // generic label if the geocoder is unavailable or returns nothing.
   Future<City> resolveCurrentCity() async {
     final position = await getCurrentPosition();
 
@@ -81,7 +72,7 @@ class LocationService {
         );
       }
     } catch (_) {
-      // Fall through to the generic label below.
+      // Fall back to generic label below.
     }
 
     return City.currentLocation(

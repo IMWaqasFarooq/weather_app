@@ -6,7 +6,7 @@ import '../../data/models/city.dart';
 import '../../data/models/weather.dart';
 import 'weather_icon.dart';
 
-/// Hero card showing the location name and current conditions at a glance.
+// Hero card showing location name and current conditions.
 class CurrentWeatherCard extends StatelessWidget {
   const CurrentWeatherCard({
     super.key,
@@ -40,11 +40,13 @@ class CurrentWeatherCard extends StatelessWidget {
             const SizedBox(height: 12),
             Row(
               children: [
-                WeatherIcon(code: current.weatherCode, isDay: current.isDay, size: 56),
+                WeatherIcon(
+                    code: current.weatherCode, isDay: current.isDay, size: 56),
                 const SizedBox(width: 16),
                 Text(
                   '${current.temperature.round()}${temperatureUnit.label}',
-                  style: theme.textTheme.displaySmall?.copyWith(fontWeight: FontWeight.w600),
+                  style: theme.textTheme.displaySmall
+                      ?.copyWith(fontWeight: FontWeight.w600),
                 ),
               ],
             ),
@@ -55,13 +57,17 @@ class CurrentWeatherCard extends StatelessWidget {
             ),
             Text(
               'Feels like ${current.apparentTemperature.round()}${temperatureUnit.label}',
-              style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.outline),
+              style: theme.textTheme.bodyMedium
+                  ?.copyWith(color: theme.colorScheme.outline),
             ),
             const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _Metric(icon: Icons.water_drop_outlined, label: '${current.humidity}%', caption: 'Humidity'),
+                _Metric(
+                    icon: Icons.water_drop_outlined,
+                    label: '${current.humidity}%',
+                    caption: 'Humidity'),
                 _Metric(
                   icon: Icons.air,
                   label: '${current.windSpeed.round()} ${windSpeedUnit.label}',
@@ -82,7 +88,8 @@ class CurrentWeatherCard extends StatelessWidget {
 }
 
 class _Metric extends StatelessWidget {
-  const _Metric({required this.icon, required this.label, required this.caption});
+  const _Metric(
+      {required this.icon, required this.label, required this.caption});
 
   final IconData icon;
   final String label;
@@ -95,8 +102,12 @@ class _Metric extends StatelessWidget {
       children: [
         Icon(icon, size: 20, color: theme.colorScheme.primary),
         const SizedBox(height: 6),
-        Text(label, style: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600)),
-        Text(caption, style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.outline)),
+        Text(label,
+            style: theme.textTheme.bodyMedium
+                ?.copyWith(fontWeight: FontWeight.w600)),
+        Text(caption,
+            style: theme.textTheme.bodySmall
+                ?.copyWith(color: theme.colorScheme.outline)),
       ],
     );
   }

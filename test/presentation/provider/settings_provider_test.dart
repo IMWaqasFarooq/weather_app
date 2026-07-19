@@ -8,7 +8,8 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('SettingsProvider', () {
-    test('defaults to system theme and celsius when nothing is stored', () async {
+    test('defaults to system theme and celsius when nothing is stored',
+        () async {
       SharedPreferences.setMockInitialValues({});
       final prefs = await SharedPreferences.getInstance();
       final settings = SettingsProvider(preferences: prefs);
@@ -31,7 +32,8 @@ void main() {
       expect(settings.windSpeedUnit, WindSpeedUnit.mph);
     });
 
-    test('toggleTemperatureUnit flips the unit, notifies and persists', () async {
+    test('toggleTemperatureUnit flips the unit, notifies and persists',
+        () async {
       SharedPreferences.setMockInitialValues({});
       final prefs = await SharedPreferences.getInstance();
       final settings = SettingsProvider(preferences: prefs);
@@ -49,7 +51,8 @@ void main() {
       expect(settings.temperatureUnit, TemperatureUnit.celsius);
     });
 
-    test('setThemeMode updates and persists, but is a no-op for the same mode', () async {
+    test('setThemeMode updates and persists, but is a no-op for the same mode',
+        () async {
       SharedPreferences.setMockInitialValues({});
       final prefs = await SharedPreferences.getInstance();
       final settings = SettingsProvider(preferences: prefs);
@@ -63,7 +66,8 @@ void main() {
       expect(prefs.getString('settings.theme_mode'), 'dark');
 
       await settings.setThemeMode(ThemeMode.dark);
-      expect(notified, 1, reason: 'setting the same mode again should not notify');
+      expect(notified, 1,
+          reason: 'setting the same mode again should not notify');
     });
   });
 }

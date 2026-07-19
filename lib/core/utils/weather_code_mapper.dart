@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// Maps Open-Meteo's WMO weather codes to a human-readable description and
-/// a Material icon, since the API only returns a numeric code.
-///
-/// Reference: https://open-meteo.com/en/docs#weathervariables (WMO code table)
+// Maps Open-Meteo's WMO weather codes to a description and icon.
 class WeatherCodeMapper {
   const WeatherCodeMapper._();
 
