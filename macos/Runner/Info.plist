@@ -28,5 +28,9 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app uses your location to show the current weather for where you are.</string>
+	<key>NSLocationUsageDescription</key>
+	<string>This app uses your location to show the current weather for where you are.</string>
 </dict>
 </plist>
